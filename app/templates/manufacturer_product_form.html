@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-layout">
+    <div class="glass auth-card wide float-card">
+        <span class="eyebrow">Upload Product</span>
+        <h1>Create a new manufacturer listing</h1>
+        <form method="post" class="form-grid two-col">
+            <label>Product Name<input type="text" name="name" required></label>
+            <label>Category
+                <select name="category_id" required>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>Short Description<input type="text" name="short_description" required></label>
+            <label>Image URL<input type="url" name="image_url" placeholder="https://..." required></label>
+            <label>Price per Kg<input type="number" name="price_per_kg" step="0.01" required></label>
+            <label>Minimum Order Quantity<input type="number" name="min_order_quantity" required></label>
+            <label>Stock in Kg<input type="number" name="stock_kg" required></label>
+            <label>Origin<input type="text" name="origin" required></label>
+            <label>Delivery ETA<input type="text" name="delivery_eta" required></label>
+            <label>Detailed Description<textarea name="description" rows="5" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Publish Product</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

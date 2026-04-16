@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="detail-layout">
+    <div class="glass product-visual float-card">
+        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+    </div>
+    <div class="glass detail-card float-card delay-2">
+        <span class="eyebrow">{{ product.category.name }}</span>
+        <h1>{{ product.name }}</h1>
+        <div class="detail-meta">
+            <span>{{ product.rating }} ★ rating</span>
+            <span>{{ product.origin }}</span>
+            <span>{{ product.delivery_eta }}</span>
+        </div>
+        <p>{{ product.description }}</p>
+        <div class="price-row">
+            <strong>₹{{ "%.0f"|format(product.price_per_kg) }}/kg</strong>
+            <small>Available stock {{ product.stock_kg }} kg</small>
+        </div>
+        <form class="inline-form" method="post" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+            <input type="number" name="quantity" min="{{ product.min_order_quantity }}" value="{{ product.min_order_quantity }}">
+            <button class="btn btn-primary" type="submit">Add to Cart</button>
+        </form>
+        <a class="supplier-link" href="{{ url_for('manufacturer_store', manufacturer_id=product.manufacturer.id) }}">Visit {{ product.manufacturer.company_name }} store</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Reviews</span>
+            <h2>Buyer experiences</h2>
+        </div>
+    </div>
+    <div class="review-grid">
+        {% for review in product.reviews %}
+            <article class="glass review-card">
+                <div class="review-header">
+                    <span class="rating-pill">{{ review.rating }} ★</span>
+                    <strong>{{ review.title }}</strong>
+                </div>
+                <p>{{ review.comment }}</p>
+                <small>{{ review.user.company_name }}</small>
+            </article>
+        {% else %}
+            <div class="glass empty-state">No reviews yet for this product.</div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="glass auth-card wide">
+        <span class="eyebrow">Write a Review</span>
+        <form method="post" class="form-grid two-col">
+            <label>Rating
+                <select name="rating">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </label>
+            <label>Title<input type="text" name="title" required></label>
+            <label>Comment<textarea name="comment" rows="4" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Post Review</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Manufacturer Panel</span>
+            <h1>Manage your store and upload inventory</h1>
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('new_product') }}">Upload Product</a>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+            {% include "partials/product_card.html" %}
+        {% else %}
+            <div class="glass empty-state">No products published yet.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

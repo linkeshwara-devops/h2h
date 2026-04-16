@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-layout">
+    <div class="glass auth-card wide float-card">
+        <span class="eyebrow">Create Account</span>
+        <h1>Join as a buyer or manufacturer</h1>
+        <form method="post" class="form-grid two-col">
+            <label>Name<input type="text" name="name" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Password<input type="password" name="password" required></label>
+            <label>Role
+                <select name="role" required>
+                    <option value="buyer">Hotel Buyer</option>
+                    <option value="manufacturer">Manufacturer</option>
+                </select>
+            </label>
+            <label>Company Name<input type="text" name="company_name" required></label>
+            <label>Business Summary<textarea name="bio" rows="4" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Create Account</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

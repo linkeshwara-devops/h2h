@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest2Hotel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="nav glass">
+            <a class="brand" href="{{ url_for('home') }}">
+                <span class="brand-mark">H2H</span>
+                <span>
+                    <strong>Harvest2Hotel</strong>
+                    <small>Bulk food sourcing for hotels</small>
+                </span>
+            </a>
+            <nav>
+                <a href="{{ url_for('catalog') }}">Catalog</a>
+                <a href="{{ url_for('cart') }}">Cart</a>
+                {% if current_user and current_user.role == 'manufacturer' %}
+                    <a href="{{ url_for('manufacturer_dashboard') }}">Manufacturer Panel</a>
+                {% endif %}
+                {% if current_user %}
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+

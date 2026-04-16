@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-copy glass float-card">
+        <span class="eyebrow">B2B Food Marketplace</span>
+        <h1>Harvest2Hotel connects food manufacturers directly with hotel buyers.</h1>
+        <p>Source pulses, tomatoes, potatoes, rice, wheat, spices, and more in the exact quantity your kitchen needs, with transparent supplier storefronts and buyer reviews.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{{ url_for('catalog') }}">Explore Products</a>
+            <a class="btn btn-secondary" href="{{ url_for('register') }}">Join as Manufacturer</a>
+        </div>
+        <div class="stats-grid">
+            <div><strong>{{ stats.manufacturers }}+</strong><span>Manufacturers</span></div>
+            <div><strong>{{ stats.products }}+</strong><span>Products</span></div>
+            <div><strong>{{ stats.hotels }}+</strong><span>Hotel Buyers</span></div>
+            <div><strong>{{ stats.orders }}+</strong><span>Bulk Orders</span></div>
+        </div>
+    </div>
+    <div class="hero-panel glass float-card delay-2">
+        <div class="orb orb-gold"></div>
+        <div class="orb orb-green"></div>
+        <h3>Procurement made calmer</h3>
+        <p>Real supplier pages, MOQ pricing, star reviews, and category-based discovery in one floating dashboard.</p>
+        <div class="mini-list">
+            <span>MOQ-based pricing</span>
+            <span>Bulk availability tracking</span>
+            <span>Flipkart-style review cards</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Categories</span>
+            <h2>Stock your kitchen by ingredient type</h2>
+        </div>
+    </div>
+    <div class="category-grid">
+        {% for category in categories %}
+            <a class="glass category-card float-card" href="{{ url_for('catalog', category=category.slug) }}">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Featured Supply</span>
+            <h2>Popular hotel-ready products</h2>
+        </div>
+    </div>
+    <div class="product-grid">
+        {% for product in featured_products %}
+            {% include "partials/product_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Buyer Reviews</span>
+            <h2>Feedback styled like major marketplaces</h2>
+        </div>
+    </div>
+    <div class="review-grid">
+        {% for review in top_reviews %}
+            <article class="glass review-card float-card">
+                <div class="review-header">
+                    <span class="rating-pill">{{ review.rating }} ★</span>
+                    <strong>{{ review.title }}</strong>
+                </div>
+                <p>{{ review.comment }}</p>
+                <small>{{ review.user.company_name }} on {{ review.product.name }}</small>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

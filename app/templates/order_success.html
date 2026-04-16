@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-layout">
+    <div class="glass auth-card wide float-card">
+        <span class="eyebrow">Order Confirmed</span>
+        <h1>Your procurement request has been submitted</h1>
+        <p>Our suppliers will review stock allocation and delivery schedules for your order.</p>
+        <div class="review-grid">
+            <article class="glass review-card">
+                <strong>Business</strong>
+                <p>{{ payment_details.business_name }}</p>
+            </article>
+            <article class="glass review-card">
+                <strong>Contact</strong>
+                <p>{{ payment_details.contact_name }}</p>
+            </article>
+            <article class="glass review-card">
+                <strong>Payment Method</strong>
+                <p>{{ payment_details.payment_method }}</p>
+            </article>
+            <article class="glass review-card">
+                <strong>Total</strong>
+                <p>₹{{ "%.0f"|format(total) }}</p>
+            </article>
+        </div>
+        <p class="muted">{{ payment_details.delivery_address }}</p>
+        <a class="btn btn-primary" href="{{ url_for('catalog') }}">Continue Shopping</a>
+    </div>
+</section>
+{% endblock %}

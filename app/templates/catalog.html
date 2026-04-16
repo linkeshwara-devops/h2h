@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+    <div class="glass filter-bar">
+        <form class="filter-form" method="get">
+            <input type="text" name="q" placeholder="Search rice, tomatoes, dal..." value="{{ query }}">
+            <select name="category">
+                <option value="">All categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.slug }}" {% if active_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Filter</button>
+        </form>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+            {% include "partials/product_card.html" %}
+        {% else %}
+            <div class="glass empty-state">No products matched your filters.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

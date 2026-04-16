@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Cart</span>
+            <h1>Requested procurement quantities</h1>
+        </div>
+    </div>
+    <div class="cart-layout">
+        <div class="cart-items">
+            {% for item in items %}
+                <article class="glass cart-card">
+                    <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
+                    <div>
+                        <h3>{{ item.product.name }}</h3>
+                        <p>{{ item.product.short_description }}</p>
+                        <form method="post" action="{{ url_for('update_cart', product_id=item.product.id) }}" class="inline-form">
+                            <input type="number" name="quantity" min="0" value="{{ item.quantity }}">
+                            <button class="btn btn-secondary" type="submit">Update</button>
+                        </form>
+                    </div>
+                    <strong>₹{{ "%.0f"|format(item.line_total) }}</strong>
+                </article>
+            {% else %}
+                <div class="glass empty-state">Your cart is empty.</div>
+            {% endfor %}
+        </div>
+        <aside class="glass summary-card">
+            <h3>Order Summary</h3>
+            <p>Total estimate</p>
+            <strong>₹{{ "%.0f"|format(total) }}</strong>
+            <a class="btn btn-primary" href="{{ url_for('payment') }}">Proceed to Payment</a>
+        </aside>
+    </div>
+</section>
+{% endblock %}

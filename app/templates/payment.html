@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Payment</span>
+            <h1>Complete your order request</h1>
+        </div>
+    </div>
+    <div class="cart-layout">
+        <div class="glass auth-card wide float-card">
+            <form method="post" class="form-grid two-col">
+                <label>Business Name<input type="text" name="business_name" required></label>
+                <label>Contact Person<input type="text" name="contact_name" required></label>
+                <label>Payment Method
+                    <select name="payment_method" required>
+                        <option value="Corporate Card">Corporate Card</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Pay on Invoice">Pay on Invoice</option>
+                    </select>
+                </label>
+                <label>Delivery Address<textarea name="delivery_address" rows="4" required></textarea></label>
+                <label>Order Notes<textarea name="notes" rows="4" placeholder="Receiving hours, unloading notes, GST details..."></textarea></label>
+                <button class="btn btn-primary" type="submit">Review and Confirm</button>
+            </form>
+        </div>
+        <aside class="glass summary-card">
+            <h3>Payment Summary</h3>
+            {% for item in items %}
+                <div class="summary-line">
+                    <span>{{ item.product.name }} x {{ item.quantity }} kg</span>
+                    <strong>₹{{ "%.0f"|format(item.line_total) }}</strong>
+                </div>
+            {% endfor %}
+            <div class="summary-total">
+                <span>Total payable</span>
+                <strong>₹{{ "%.0f"|format(total) }}</strong>
+            </div>
+        </aside>
+    </div>
+</section>
+{% endblock %}
+

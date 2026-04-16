@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+    <div class="glass store-hero float-card">
+        <span class="eyebrow">Manufacturer Store</span>
+        <h1>{{ manufacturer.company_name }}</h1>
+        <p>{{ manufacturer.bio }}</p>
+        <div class="detail-meta">
+            <span>{{ manufacturer.name }}</span>
+            <span>{{ manufacturer.email }}</span>
+            <span>{{ products|length }} listed products</span>
+        </div>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+            {% include "partials/product_card.html" %}
+        {% else %}
+            <div class="glass empty-state">This manufacturer has not listed products yet.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
