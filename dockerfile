@@ -2,7 +2,7 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY . .
+COPY . .   # VERY IMPORTANT (copies templates + static)
 
 RUN pip install -r requirements.txt
 
